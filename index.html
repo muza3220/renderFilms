@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+
+        <!-- <button class="changer" type="submit" onclick="setTheme('Blue')"> Color like Blue</button>
+        <button class="changer" type="submit" onclick="setTheme('Dark')"> Color like Blue</button> -->
+
+        
+        <div class="h1_wrapper">
+            <h1 class="h1">Movies Catalog</h1>
+        </div>
+
+        <form class="form">
+
+            <label class="form__label">
+                Qidirish:
+                <input class="form__input" type="search" placeholder="search...">
+            </label>
+            <label class="form__label">
+                Janrlar bo'yicha qidiruv:
+                <select class="form__select form__select__genres">
+                    <option class='form__option form__option__first' value="all">All</option>
+                </select>
+            </label>
+            <label class="form__label">
+                Filtrlash:
+                <select class="form__select form__select__sorts">
+                    <option class="form__option" value=""></option>
+                    <option class="form__option" value="a_z">A-Z</option>
+                    <option class="form__option" value="z_a">Z-A</option>
+                    <option class="form__option" value="old_new">OLD-NEW</option>
+                    <option class="form__option" value="new_old">NEW-OLD</option>
+                </select>
+            </label>
+
+            <button class="form__button" type="submit">Qidirish</button>
+
+        </form>
+
+
+        <ul class="list">
+            <li class="list__item">
+                <img class="card__img" src="https://via.placeholder.com/150/200" width="150" height="200"  alt="img">
+                <h2 class="names">Avengers</h2>
+            </li>
+        </ul>
+    
+    </div>
+    
+    <div class="modal">
+        <div class="wrapper">
+            <h2 class="content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque, ab.</h2>
+            <div class="little__wrapper">
+                <img class="modal__img" src="https://via.placeholder.com/150/200" alt="img" width="150" height="200">
+                <ul class="modal__list"></ul>
+            </div>
+            <p class="modal__p">lorem</p>
+            <time class="time">something</time>
+            <div class="closer">&times;</div>
+        </div>
+    </div>
+    
+    <template class="movie__template">
+        <li class="list__item">
+            <img class="card__img" src="https://via.placeholder.com/150/200" width="150" height="200"  alt="img">
+            <h2 class="names">Avengers</h2>
+            <p class="button__more for__css" type="button">read more</p>
+        </li>
+    </template>
+
+
+    <script src="./js/films.js"> </script>
+    <script src="./js/utils.js"> </script>
+    <script src="./js/app.js"> </script>
+</body>
+</html>

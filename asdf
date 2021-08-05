@@ -1,0 +1,251 @@
+const elList = setter('.list')
+const elSelect = setter('.form__select-js')
+const elSelectOption = setter('.form__option__first')
+const elForm = setter('.form')
+const elListItem = setter('.list__item')
+const elFormInput = setter('.form__input')
+
+
+
+// primery function
+enterer(films, elList)
+function enterer(liS, elListArr) {
+    elListArr.innerHTML = null
+    
+    liS.forEach(film => {
+        
+        //for creators
+        const newLi = creator('li')
+        const newImg = creator('img')
+        const newH2 = creator('h2')
+        const newP = creator('p')
+        const newA = creator('a')
+        const newTime = creator('time')
+        const newUl = creator('ul')
+        
+        
+        
+        forGenres(film, newUl)
+
+
+
+        //for textContents
+        newH2.textContent = film.title
+        newP.textContent = film.overview.split(' ').slice(0,20).join(' ') + ' ...'
+        newA.textContent = 'read more'
+        newTime.textContent = makeTime(film.release_date)
+
+
+
+        //for setAttributes
+        newLi.setAttribute('class', 'list__item')
+        newImg.setAttribute('src', film.poster)
+        newImg.setAttribute('class', 'card__img')
+        newImg.setAttribute('alt', film.title)
+        newImg.setAttribute('width', 150)
+        newImg.setAttribute('class', 200)
+        newH2.setAttribute('class', 'names')
+        newP.setAttribute('class', 'overviews')
+        newA.setAttribute('class', 'readmore')
+        newTime.setAttribute('class', 'time')
+        newUl.setAttribute('class', 'genres__list')
+
+
+
+
+        //for appendChilds
+        elListArr.appendChild(newLi)
+        newLi.appendChild(newImg)
+        newLi.appendChild(newH2)
+        newLi.appendChild(newP)
+        newLi.appendChild(newA)
+        newLi.appendChild(newTime)
+        newLi.appendChild(newUl)
+    })
+}
+
+// extra functions 
+function forGenres(objectFilms, newUlElement) {
+    objectFilms.genres.forEach(genre => {
+        const newGenreLi = creator('li')
+        newGenreLi.textContent = genre
+        newUlElement.appendChild(newGenreLi)
+    })
+}
+
+pushOption(films)
+function pushOption(films) {
+    const result = []
+    films.forEach(film => {
+        film.genres.forEach(genre => {
+            if (!result.includes(genre)) {
+                result.push(genre)
+            }
+        })
+    })
+
+    // elSelect.innerHTML = null
+    elSelect.value = result
+    result.forEach(singleGenre => {
+        const newOption = creator('option') 
+        newOption.value = singleGenre
+        newOption.textContent = singleGenre 
+        elSelect.appendChild(newOption)
+    }) 
+}
+
+elForm.addEventListener('submit', (evt) => {
+    evt.preventDefault()
+
+    let inputValue = elFormInput.value.trim()
+    const regex = new RegExp(inputValue, 'gi')
+    
+    let searchedFilms = films.filter(film => {
+        return film.title.match(regex)
+    })
+
+    console.log(inputValue)
+
+
+    const selectFilms = elSelect.value.trim()
+
+    let foundFilms = []
+    if (selectFilms === 'all') {
+        foundFilms = searchedFilms
+    } else {
+        foundFilms = searchedFilms.filter(film => {
+            return film.genres.includes(selectFilms)
+        })
+    }
+
+    enterer(foundFilms, elList)
+
+    
+    // enterer(searchedFilms, elList)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const elList = selector('.list')
+// const elMovieTemplate = selector('.movie__template').content
+// const elForm = selector('.form')
+// const elSelectGenres = selector('.form__select__genres', elForm)
+// const elSelectSorts = selector('.form__select__sorts', elForm)
+// const elInput = selector('.form__input', elForm)
+
+
+
+// function renderMovies(filmsArr, element) {
+//     element.innerHTML = null
+//     filmsArr.forEach(film => {
+//         const movieTemplate = elMovieTemplate.cloneNode(true)
+        
+//         selector('.card__img', movieTemplate).setAttribute('src', film.poster)
+//         selector('.card__img', movieTemplate).setAttribute('alt', film.title)
+//         selector('.names', movieTemplate).textContent = film.title
+//         selector('.time', movieTemplate).textContent = timeMaker(film.release_date)
+//         selector('.time', movieTemplate).setAttribute('datetime', timeMaker(film.release_date))
+//         const GenresList = selector('.genres__list', movieTemplate)
+        
+//         GenresList.innerHTML = null
+//         film.genres.forEach(genre => {
+//             const newGenreLi = creator('li')
+//             newGenreLi.textContent = genre
+//             GenresList.appendChild(newGenreLi)
+//         })
+
+//         element.appendChild(movieTemplate)
+//     })
+// }
+
+// renderMovies(films, elList)
+
+
+// function renderGenres(filmsArr, element) {
+//     const pointedGenres = []
+//     filmsArr.forEach(film => {
+//         film.genres.forEach(gerne => {
+//             if(!pointedGenres.includes(gerne)) {
+//                 pointedGenres.push(gerne)
+//             }
+            
+//         })
+//     })
+    
+//     pointedGenres.forEach(genre => {
+//         const GenreOption = creator('option')
+//         GenreOption.value = genre
+//         GenreOption.textContent  = genre
+//         element.appendChild(GenreOption)
+//     })
+// }
+// renderGenres(films, elSelectGenres)
+
+
+// elForm.addEventListener('submit', (evt) => {
+//     evt.preventDefault()
+    
+//     const inputValue = elInput.value.trim()
+//     const genresValue = elSelectGenres.value.trim()
+//     const sortValue = elSelectSorts.value.trim()
+
+//     const regex = new RegExp(inputValue, 'gi')
+//     let searchedFilms = films.filter(film => {
+//         return film.title.match(regex)
+//     })
+
+    
+    
+//     let foundFilms = []
+//     if(genresValue === 'all') {
+//         foundFilms = searchedFilms
+//     } else {
+//         foundFilms = films.filter(film => {
+//             return film.genres.includes(genresValue)
+//         })
+//     }
+    
+//     let sortedFilms = []
+//     if(sortValue === '') {
+//         sortedFilms = foundFilms
+//     } else if (sortValue === 'a_z') {
+//         sortedFilms = foundFilms.sort((a,b) => {
+//             if(a.title > b.title) {
+//                 return 1
+//             } else if (a.title < b.title) {
+//                 return -1
+//             } else {
+//                 return 0
+//             }
+//         })
+//     } else if (sortValue === 'z_a') {
+//         sortedFilms = foundFilms.sort((b,a) => {
+//             if(a.title > b.title) {
+//                 return 1
+//             } else if (a.title < b.title) {
+//                 return -1
+//             } else {
+//                 return 0
+//             }
+//         })
+//     } else if (sortValue === 'old_new') {
+//         sortedFilms = foundFilms.sort((a,b) => a.release_date - b.release_date)
+//     } else if (sortValue === 'new_old') {
+//         sortedFilms = foundFilms.sort((b,a) => a.release_date - b.release_date)
+//     }
+    
+//     renderMovies(sortedFilms, elList)
+    
+// })
+
